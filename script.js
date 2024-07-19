@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPlayer = 'X';
     let board = Array(9).fill(null);
 
+    const emojis = ['🎉', '🎊', '🎈', '🍭', '🍫'];
+
     const checkWin = (board) => {
         const winPatterns = [
             [0, 1, 2],
@@ -35,10 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (result) {
                 showMessage(`${result.winner} wins!`);
                 highlightCells(result.pattern);
-                setTimeout(resetBoard, 2000);
+                throwEmojis();
+                setTimeout(resetBoard, 3000);
             } else if (!board.includes(null)) {
                 showMessage('It\'s a tie!');
-                setTimeout(resetBoard, 2000);
+                setTimeout(resetBoard, 3000);
             } else {
                 currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             }
@@ -53,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         currentPlayer = 'X';
         hideMessage();
+        clearEmojis();
     };
 
     const showMessage = (message) => {
@@ -68,6 +72,27 @@ document.addEventListener('DOMContentLoaded', () => {
         pattern.forEach(index => {
             cells[index].classList.add('highlight');
         });
+    };
+
+    const throwEmojis = () => {
+        const emojiContainer = document.createElement('div');
+        emojiContainer.classList.add('emoji-container');
+        document.body.appendChild(emojiContainer);
+        for (let i = 0; i < 30; i++) {
+            const emoji = document.createElement('div');
+            emoji.classList.add('emoji');
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = `${Math.random() * 100}vw`;
+            emoji.style.animationDelay = `${Math.random() * 2}s`;
+            emojiContainer.appendChild(emoji);
+        }
+    };
+
+    const clearEmojis = () => {
+        const emojiContainer = document.querySelector('.emoji-container');
+        if (emojiContainer) {
+            emojiContainer.remove();
+        }
     };
 
     cells.forEach(cell => cell.addEventListener('click', handleClick));

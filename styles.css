@@ -6,7 +6,7 @@ body {
     height: 100vh;
     margin: 0;
     color: rgb(255, 253, 253);
-    background-image: url('tic.jpg'); 
+    background-image: url('tic.avif'); 
     background-size: cover; 
     background-position: center; 
 }
@@ -79,4 +79,22 @@ h1 {
 
 .cell.highlight {
     background-color: #ffeb3b;
+}
+@keyframes fall {
+    0% {
+        opacity: 1;
+        transform: translateY(-100vh) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+.emoji {
+    position: absolute;
+    font-size: 3rem;
+    top: -90px;
+    opacity: 1;
+    animation: fall 2s infinite;
 }
